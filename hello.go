@@ -8,6 +8,7 @@ import (
     "log"
     "github.com/go-sql-driver/mysql"
     "github.com/gin-gonic/gin"
+    "github.com/gin-contrib/cors"
 )
 
 var db *sql.DB
@@ -43,6 +44,9 @@ func main() {
     //fmt.Println("Connected!")
 
     router := gin.Default()
+    corsConfig := cors.DefaultConfig()
+	corsConfig.AllowAllOrigins = true
+	router.Use(cors.New(corsConfig))
     router.GET("/testGet", getUserAccounts)
 
     router.Run("localhost:8080")
